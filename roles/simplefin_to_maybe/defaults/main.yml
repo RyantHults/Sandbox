@@ -24,7 +24,6 @@ simplefin_to_maybe_postgres_docker_image_repo: "postgres"
 simplefin_to_maybe_postgres_paths_folder: "{{ simplefin_to_maybe_name }}"
 simplefin_to_maybe_postgres_paths_location: "{{ server_appdata_path }}/{{ simplefin_to_maybe_postgres_paths_folder }}/postgres"
 
-
 ################################
 # Paths
 ################################
@@ -34,17 +33,16 @@ simplefin_to_maybe_paths_location: "{{ server_appdata_path }}/{{ simplefin_to_ma
 simplefin_to_maybe_paths_folders_list:
   - "{{ simplefin_to_maybe_paths_location }}"
 
-
 ################################
 # Web
 ###############################
 simplefin_to_maybe_web_subdomain: "{{ simplefin_to_maybe_name }}"
 simplefin_to_maybe_web_domain: "{{ user.domain }}"
 simplefin_to_maybe_web_port: 9501
-simplefin_to_maybe_web_url: "{{ 'https://' + (simplefin_to_maybe_web_subdomain + '.' + simplefin_to_maybe_web_domain
-                            if (simplefin_to_maybe_web_subdomain | length > 0)
-                            else simplefin_to_maybe_web_domain) }}"
-
+simplefin_to_maybe_web_url:
+  "{{ 'https://' + (simplefin_to_maybe_web_subdomain + '.' + simplefin_to_maybe_web_domain
+  if (simplefin_to_maybe_web_subdomain | length > 0)
+  else simplefin_to_maybe_web_domain) }}"
 
 ################################
 # DNS
@@ -52,7 +50,6 @@ simplefin_to_maybe_web_url: "{{ 'https://' + (simplefin_to_maybe_web_subdomain +
 simplefin_to_maybe_dns_record: "{{ simplefin_to_maybe_web_subdomain  }}"
 simplefin_to_maybe_dns_zone: "{{ simplefin_to_maybe_web_domain  }}"
 simplefin_to_maybe_dns_proxy: "{{ dns.proxied }}"
-
 
 ################################
 # Traefik
@@ -64,7 +61,6 @@ simplefin_to_maybe_traefik_certresolver: "{{ traefik_default_certresolver }}"
 simplefin_to_maybe_traefik_enabled: true
 simplefin_to_maybe_traefik_api_enabled: false
 simplefin_to_maybe_traefik_api_endpoint: ""
-
 
 ################################
 # Docker
@@ -81,8 +77,8 @@ simplefin_to_maybe_docker_image: "ghcr.io/steveredden/simplefin_to_maybe:{{ simp
 # Ports
 simplefin_to_maybe_docker_ports_defaults: []
 simplefin_to_maybe_docker_ports_custom: []
-simplefin_to_maybe_docker_ports:  "{{ simplefin_to_maybe_docker_ports_defaults
-                                  + simplefin_to_maybe_docker_ports_custom }}"
+simplefin_to_maybe_docker_ports: "{{ simplefin_to_maybe_docker_ports_defaults
+  + simplefin_to_maybe_docker_ports_custom }}"
 
 # Envs
 simplefin_to_maybe_docker_envs_default:
@@ -99,40 +95,41 @@ simplefin_to_maybe_docker_envs_default:
   POSTGRES_DB: "{{ simplefin_to_maybe_name }}"
 simplefin_to_maybe_docker_envs_custom: {}
 simplefin_to_maybe_docker_envs: "{{ simplefin_to_maybe_docker_envs_default
-                           | combine(simplefin_to_maybe_docker_envs_custom) }}"
+  | combine(simplefin_to_maybe_docker_envs_custom) }}"
 
 # Commands
 simplefin_to_maybe_docker_commands_default: []
 simplefin_to_maybe_docker_commands_custom: []
-simplefin_to_maybe_docker_commands: "{{ simplefin_to_maybe_docker_commands_default
-                               + simplefin_to_maybe_docker_commands_custom }}"
+simplefin_to_maybe_docker_commands:
+  "{{ simplefin_to_maybe_docker_commands_default
+  + simplefin_to_maybe_docker_commands_custom }}"
 
 # Volumes
-simplefin_to_maybe_docker_volumes_default: 
+simplefin_to_maybe_docker_volumes_default:
   - "{{ simplefin_to_maybe_paths_location }}:/app-storage"
 simplefin_to_maybe_docker_volumes_custom: []
 simplefin_to_maybe_docker_volumes: "{{ simplefin_to_maybe_docker_volumes_default
-                              + simplefin_to_maybe_docker_volumes_custom }}"
+  + simplefin_to_maybe_docker_volumes_custom }}"
 
 # Devices
 simplefin_to_maybe_docker_devices_default: []
 simplefin_to_maybe_docker_devices_custom: []
 simplefin_to_maybe_docker_devices: "{{ simplefin_to_maybe_docker_devices_default
-                              + simplefin_to_maybe_docker_devices_custom }}"
+  + simplefin_to_maybe_docker_devices_custom }}"
 
 # Hosts
 simplefin_to_maybe_docker_hosts_default: {}
 simplefin_to_maybe_docker_hosts_custom: {}
 simplefin_to_maybe_docker_hosts: "{{ docker_hosts_common
-                            | combine(simplefin_to_maybe_docker_hosts_default)
-                            | combine(simplefin_to_maybe_docker_hosts_custom) }}"
+  | combine(simplefin_to_maybe_docker_hosts_default)
+  | combine(simplefin_to_maybe_docker_hosts_custom) }}"
 
 # Labels
 simplefin_to_maybe_docker_labels_default: {}
 simplefin_to_maybe_docker_labels_custom: {}
 simplefin_to_maybe_docker_labels: "{{ docker_labels_common
-                             | combine(simplefin_to_maybe_docker_labels_default)
-                             | combine(simplefin_to_maybe_docker_labels_custom) }}"
+  | combine(simplefin_to_maybe_docker_labels_default)
+  | combine(simplefin_to_maybe_docker_labels_custom) }}"
 
 # Hostname
 simplefin_to_maybe_docker_hostname: "{{ simplefin_to_maybe_name }}"
@@ -142,20 +139,22 @@ simplefin_to_maybe_docker_networks_alias: "{{ simplefin_to_maybe_name }}"
 simplefin_to_maybe_docker_networks_default: []
 simplefin_to_maybe_docker_networks_custom: []
 simplefin_to_maybe_docker_networks: "{{ docker_networks_common
-                               + simplefin_to_maybe_docker_networks_default
-                               + simplefin_to_maybe_docker_networks_custom }}"
+  + simplefin_to_maybe_docker_networks_default
+  + simplefin_to_maybe_docker_networks_custom }}"
 
 # Capabilities
 simplefin_to_maybe_docker_capabilities_default: []
 simplefin_to_maybe_docker_capabilities_custom: []
-simplefin_to_maybe_docker_capabilities: "{{ simplefin_to_maybe_docker_capabilities_default
-                                   + simplefin_to_maybe_docker_capabilities_custom }}"
+simplefin_to_maybe_docker_capabilities:
+  "{{ simplefin_to_maybe_docker_capabilities_default
+  + simplefin_to_maybe_docker_capabilities_custom }}"
 
 # Security Opts
 simplefin_to_maybe_docker_security_opts_default: []
 simplefin_to_maybe_docker_security_opts_custom: []
-simplefin_to_maybe_docker_security_opts: "{{ simplefin_to_maybe_docker_security_opts_default
-                                    + simplefin_to_maybe_docker_security_opts_custom }}"
+simplefin_to_maybe_docker_security_opts:
+  "{{ simplefin_to_maybe_docker_security_opts_default
+  + simplefin_to_maybe_docker_security_opts_custom }}"
 
 # Restart Policy
 simplefin_to_maybe_docker_restart_policy: unless-stopped
