@@ -160,6 +160,7 @@
     - { role: sabthrottle, tags: ['sabthrottle'] }
     - { role: sarotate, tags: ['sarotate'] }
     - { role: semaphoreui, tags: ['semaphoreui'] }
+    - { role: simplefin_to_maybe, tags: ['simplefin-to-maybe'] }
     - { role: solr, tags: ['solr'] }
     - { role: speedtest, tags: ['speedtest'] }
     - { role: sqlitebrowser, tags: ['sqlitebrowser'] }
